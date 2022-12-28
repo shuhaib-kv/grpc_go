@@ -19,7 +19,10 @@ func main() {
 	c := greetpb.NewGreetServiceClient(cc)
 	doUnary(c)
 	// fmt.Printf("created a client %f", c)
+	doserverstreaming(c)
 
+}
+func doserverstreaming(c greetpb.GreetServiceClient) {
 }
 func doUnary(c greetpb.GreetServiceClient) {
 	fmt.Println("starting to use unary rpc")
