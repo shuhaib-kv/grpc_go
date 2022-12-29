@@ -41,7 +41,6 @@ func main() {
 		log.Fatalf("faild to connecr %v", err)
 
 	}
-
 	s := grpc.NewServer()
 	greetpb.RegisterGreetServiceServer(s, &server{})
 	if err := s.Serve(lis); err != nil {
