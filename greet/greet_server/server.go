@@ -22,7 +22,9 @@ func (*server) Greet(ctx context.Context, req *greetpb.GreetRequest) (*greetpb.G
 	}
 	return res, nil
 }
+
 func (*server) GreetManyTimes(req *greetpb.GreetManyTimesRequest, stream greetpb.GreetService_GreetManyTimesClient) error {
+	fmt.Println("greet many time")
 	firstname := req.GetGreeting().GetFirstName()
 	for i := 0; i < 10; i++ {
 		result := "Hello" + firstname + "number" + strconv.Itoa(i)
@@ -34,6 +36,7 @@ func (*server) GreetManyTimes(req *greetpb.GreetManyTimesRequest, stream greetpb
 	}
 	return nil
 }
+
 func main() {
 	fmt.Println("hello")
 	lis, err := net.Listen("tcp", "0.0.0.0:50051")
@@ -41,7 +44,7 @@ func main() {
 		log.Fatalf("faild to connecr %v", err)
 
 	}
-	s := grpc.NewServer()
+	s := grpc.NewServer(opts...)
 	greetpb.RegisterGreetServiceServer(s, &server{})
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("faild:%v", err)
